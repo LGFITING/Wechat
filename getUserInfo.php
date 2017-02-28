@@ -5,6 +5,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+echo 'test';exit();
 $appid = "wxd8e911e6cf0b7ed0";  
 $secret = "87dc05c99d168869fd9ecd6f213196ef";  
 $code = $_GET["code"];
