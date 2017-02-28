@@ -30,10 +30,5 @@ $oauth2 = getJson($oauth2Url);
 //第三步:根据全局access_token和openid查询用户信息  
 $access_token = $token["access_token"];  
 $openid = $oauth2['openid'];  
-  print_r($openid);exit();
-$get_user_info_url = "https://api.weixin.qq.com/cgi-bin/user/info?access_token=$access_token&openid=$openid&lang=zh_CN";
-$userinfo = getJson($get_user_info_url);
- 
-//打印用户信息
-  print_r($userinfo);
+  print_r($openid);
  
