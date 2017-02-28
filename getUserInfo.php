@@ -16,9 +16,8 @@ $oauth2 = getJson($oauth2Url);
 $access_token = $oauth2["access_token"];  
 $openid = $oauth2['openid'];  
 echo $access_token;
-echo $openid;exit();
-$get_user_info_url = "https://api.weixin.qq.com/cgi-bin/user/info?access_token=$access_token&openid=$openid&lang=zh_CN";
-
+//$get_user_info_url = "https://api.weixin.qq.com/cgi-bin/user/info?access_token=$access_token&openid=$openid&lang=zh_CN";
+$get_user_info_url = "https://api.weixin.qq.com/cgi-bin/user/info?access_token=$access_token&openid=$openid";
 $userinfo = getJson($get_user_info_url);
 //打印用户信息
   print_r($userinfo);
