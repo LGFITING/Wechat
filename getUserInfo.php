@@ -9,16 +9,12 @@ $appid = "wxd8e911e6cf0b7ed0";
 $secret = "87dc05c99d168869fd9ecd6f213196ef";  
 $code = $_GET["code"];
 
-//第一步:取全局access_token
-$url = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=$appid&secret=$secret";
-$token = getJson($url);
-
-//第二步:取得openid
+//第一步:取得openid
 $oauth2Url = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=$appid&secret=$secret&code=$code&grant_type=authorization_code";
 $oauth2 = getJson($oauth2Url);
   
-//第三步:根据全局access_token和openid查询用户信息  
-$access_token = $token["access_token"];  
+//第二步:根据全局access_token和openid查询用户信息  
+$access_token = $oauth2["access_token"];  
 $openid = $oauth2['openid'];  
 $get_user_info_url = "https://api.weixin.qq.com/cgi-bin/user/info?access_token=$access_token&openid=$openid&lang=zh_CN";
 $userinfo = getJson($get_user_info_url);
