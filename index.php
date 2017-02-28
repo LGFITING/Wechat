@@ -11,7 +11,17 @@ $options = array(
 $weObj = new Wechat($options);
 $weObj->valid(); //明文或兼容模式可以在接口验证通过后注释此句，但加密模式一定不能注释，否则会验证失败
 
-//二维码
+//scope=snsapi_base 实例
+$appid='wxd8e911e6cf0b7ed0';
+$redirect_uri = urlencode ( 'http://lg.im-rice.com/getUserInfo.php' );
+$url ="https://open.weixin.qq.com/connect/oauth2/authorize?appid=$appid&redirect_uri=$redirect_uri&response_type=code&scope=snsapi_base&state=1#wechat_redirect";
+header("Location:".$url);
+
+
+
+
+
+
 $type = $weObj->getRev()->getRevType();
 switch ($type) {
     case Wechat::MSGTYPE_TEXT:
