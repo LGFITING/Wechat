@@ -13,7 +13,8 @@ function get_current_url(){
     } 
     return $current_url; 
 }
-echo $current_url;exit();
+$url = get_current_url();
+echo $url;exit();
 //scope=snsapi_base 实例
 $appid='wxd8e911e6cf0b7ed0';
 $redirect_uri = urlencode ( 'http://lg.im-rice.com/getUserInfo.php' );
