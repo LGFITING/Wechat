@@ -12,11 +12,34 @@
 //$weObj->valid(); //明文或兼容模式可以在接口验证通过后注释此句，但加密模式一定不能注释，否则会验证失败
 
 //scope=snsapi_base 实例
-$appid='wxd8e911e6cf0b7ed0';
-$redirect_uri = urlencode ( 'http://lg.im-rice.com/getUserInfo.php' );
-$url ="https://open.weixin.qq.com/connect/oauth2/authorize?appid=$appid&redirect_uri=$redirect_uri&response_type=code&scope=snsapi_userinfo&state=1#wechat_redirect";
-header("Location:".$url);
 
+
+$appid = "wxd8e911e6cf0b7ed0";  
+$secret = "87dc05c99d168869fd9ecd6f213196ef";  
+$code = $_GET["code"];
+
+//第一步:取得openid
+$oauth2Url = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=$appid&secret=$secret&code=$code&grant_type=authorization_code";
+$oauth2 = getJson($oauth2Url);
+//第二步:根据全局access_token和openid查询用户信息  
+$access_token = $oauth2["access_token"];  
+$openid = $oauth2['openid']; 
+
+$get_user_info_url = "https://api.weixin.qq.com/sns/userinfo?access_token=$access_token&openid=$openid&lang=zh_CN";
+$userinfo = getJson($get_user_info_url);
+//打印用户信息
+print_r($userinfo);
+//header("Location:http://lg.im-rice.com");
+function getJson($url){
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, $url);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE); 
+    curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, FALSE); 
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+    $output = curl_exec($ch);
+    curl_close($ch);
+    return json_decode($output, true);
+}
 //$type = $weObj->getRev()->getRevType();
 //switch ($type) {
 //    case Wechat::MSGTYPE_TEXT:
