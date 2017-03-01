@@ -45,7 +45,7 @@ switch ($type) {
     $appid = "wxd8e911e6cf0b7ed0";  
     $secret = "87dc05c99d168869fd9ecd6f213196ef";  
     $code = $_GET["code"];
-
+    echo $code;exit();
     //第一步:取得openid
     $oauth2Url = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=$appid&secret=$secret&code=$code&grant_type=authorization_code";
     $oauth2 = getJson($oauth2Url);
@@ -59,7 +59,7 @@ switch ($type) {
     if($userinfo){
     print_r($userinfo);
     }
-    //header("Location:http://lg.im-rice.com");
+    
     function getJson($url){
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $url);
