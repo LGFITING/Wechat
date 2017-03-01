@@ -1,4 +1,5 @@
 <?php
+header('Content-Type:text/html;charset=utf-8');
 include './wechat-php-sdk/wechat.class.php';
 //php获取当前访问的完整url地址 
 function get_current_url(){ 
