@@ -17,11 +17,9 @@ $current_url = get_current_url();
 
 //scope=snsapi_base 实例
 $appid='wxd8e911e6cf0b7ed0';
+//$redirect_uri = urlencode ( 'http://lg.im-rice.com/getUserInfo.php' );
 $redirect_uri = urlencode ( $current_url );
 $url ="https://open.weixin.qq.com/connect/oauth2/authorize?appid=$appid&redirect_uri=$redirect_uri&response_type=code&scope=snsapi_userinfo&state=1#wechat_redirect";
-
-
-
 
 
 $options = array(
@@ -53,7 +51,32 @@ switch ($type) {
    		"button"=>
    			array(
    				array('type'=>'click','name'=>'最新消息','key'=>'MENU_KEY_NEWS'),
-  				array('type'=>'view','name'=>'我要搜索','url'=>'http://www.baidu.com'),
+  				array('type'=>'view','name'=>'我要搜索','url'=>$url),
    				)
  		);
    $result = $weObj->createMenu($newmenu);
+   
+   $appid = "wxd8e911e6cf0b7ed0";  
+$secret = "87dc05c99d168869fd9ecd6f213196ef";  
+$code = $_GET["code"];
+
+//第一步:取得openid
+$oauth2Url = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=$appid&secret=$secret&code=$code&grant_type=authorization_code";
+$oauth2 = getJson($oauth2Url);
+//第二步:根据全局access_token和openid查询用户信息  
+$access_token = $oauth2["access_token"];  
+$openid = $oauth2['openid']; 
+
+$get_user_info_url = "https://api.weixin.qq.com/sns/userinfo?access_token=$access_token&openid=$openid&lang=zh_CN";
+$userinfo = getJson($get_user_info_url);
+
+function getJson($url){
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, $url);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE); 
+    curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, FALSE); 
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+    $output = curl_exec($ch);
+    curl_close($ch);
+    return json_decode($output, true);
+}
