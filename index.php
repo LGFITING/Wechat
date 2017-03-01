@@ -68,7 +68,7 @@ $openid = $oauth2['openid'];
 
 $get_user_info_url = "https://api.weixin.qq.com/sns/userinfo?access_token=$access_token&openid=$openid&lang=zh_CN";
 $userinfo = getJson($get_user_info_url);
-
+print_r($userinfo);
 function getJson($url){
     $ch = curl_init();
     curl_setopt($ch, CURLOPT_URL, $url);
