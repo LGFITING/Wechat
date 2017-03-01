@@ -3,11 +3,8 @@
 include './wechat-php-sdk/wechat.class.php';
 $appid='wxd8e911e6cf0b7ed0';
 $redirect_uri = urlencode ( 'http://lg.im-rice.com/getUserInfo.php' );
-$redirect_uri2 = urlencode ( 'http://lg.im-rice.com' );
 $url ="https://open.weixin.qq.com/connect/oauth2/authorize?appid=$appid&redirect_uri=$redirect_uri&response_type=code&scope=snsapi_userinfo&state=1#wechat_redirect";
-//header("Location:".$url);
-$url2 ="https://open.weixin.qq.com/connect/oauth2/authorize?appid=$appid&redirect_uri=$redirect_uri2&response_type=code&scope=snsapi_userinfo&state=1#wechat_redirect";
-
+header("Location:".$url);
 $options = array(
     'token' => 'LGwechat', //填写你设定的key
     'encodingaeskey' => '', //填写加密用的EncodingAESKey
@@ -40,7 +37,7 @@ switch ($type) {
    		"button"=>
    			array(
    				array('type'=>'click','name'=>'最新消息','key'=>'MENU_KEY_NEWS'),
-  				array('type'=>'view','name'=>'我要搜索','url'=>$url2),
+  				array('type'=>'view','name'=>'我要搜索','url'=>$url),
    				)
  		);
    $result = $weObj->createMenu($newmenu);
