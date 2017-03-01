@@ -2,7 +2,7 @@
 //
 include './wechat-php-sdk/wechat.class.php';
 $appid='wxd8e911e6cf0b7ed0';
-$redirect_uri = urlencode ( 'http://lg.im-rice.com' );
+$redirect_uri = urlencode ( 'http://lg.im-rice.com/getUserInfo.php' );
 $url ="https://open.weixin.qq.com/connect/oauth2/authorize?appid=$appid&redirect_uri=$redirect_uri&response_type=code&scope=snsapi_userinfo&state=1#wechat_redirect";
 //header("Location:".$url);
 $options = array(
