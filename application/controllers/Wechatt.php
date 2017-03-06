@@ -17,10 +17,27 @@ class Wechatt extends CI_Controller {
             )
         );
         $result = $this->ci_wechat->createMenu($newmenu);
+
+
+        $this->ci_wechat->valid(); //明文或兼容模式可以在接口验证通过后注释此句，但加密模式一定不能注释，否则会验证失败
+        $this->ci_wechat->getRev()->getRevType();
         
-        $userMsg = $this->ci_wechat->getUserInfo();
-        $user = json_decode($userMsg);
-        var_dump($user);
+        switch($type) {
+	case Wechat::MSGTYPE_TEXT:
+			$this->ci_wechat->text("hello, I'm wechat")->reply();
+			exit;
+			break;
+	case Wechat::MSGTYPE_EVENT:
+			break;
+	case Wechat::MSGTYPE_IMAGE:
+			break;
+	default:
+			$this->ci_wechat->text("help info")->reply();
+}
+        
+//        $userMsg = $this->ci_wechat->getUserInfo();
+//        $user = json_decode($userMsg);
+//        var_dump($user);
     }
 
 }
