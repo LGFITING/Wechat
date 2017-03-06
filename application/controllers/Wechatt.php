@@ -18,6 +18,9 @@ class Wechatt extends CI_Controller {
         );
         $result = $this->ci_wechat->createMenu($newmenu);
 
+        $userMsg = $this->ci_wechat->getUserInfo();
+        $user = json_decode($userMsg);
+
         $options = array(
             'token' => 'LGwechat', //填写你设定的key
             'encodingaeskey' => '' //填写加密用的EncodingAESKey，如接口为明文模式可忽略
@@ -27,7 +30,7 @@ class Wechatt extends CI_Controller {
         $type = $weObj->getRev()->getRevType();
         switch ($type) {
             case Wechat::MSGTYPE_TEXT:
-                $weObj->text("hello, I'm wechat")->reply();
+                $weObj->text($user)->reply();
                 exit;
                 break;
             case Wechat::MSGTYPE_EVENT:
@@ -37,10 +40,6 @@ class Wechatt extends CI_Controller {
             default:
                 $weObj->text("help info")->reply();
         }
-
-//        $userMsg = $this->ci_wechat->getUserInfo();
-//        $user = json_decode($userMsg);
-//        var_dump($user);
     }
 
 }
