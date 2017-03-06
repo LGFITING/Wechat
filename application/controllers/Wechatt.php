@@ -33,7 +33,7 @@ class Wechatt extends CI_Controller {
         $type = $weObj->getRev()->getRevType();
         switch ($type) {
             case Wechat::MSGTYPE_TEXT:
-                $weObj->text($userMsg)->reply();
+                $weObj->text($access_token)->reply();
                 exit;
                 break;
             case Wechat::MSGTYPE_EVENT:
