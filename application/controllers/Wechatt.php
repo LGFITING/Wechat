@@ -5,6 +5,8 @@
  */
 class Wechatt extends CI_Controller {
 
+    private $user;
+
     public function index()
     {
         $this->load->library('CI_Wechat');
@@ -18,12 +20,15 @@ class Wechatt extends CI_Controller {
         );
         $result = $this->ci_wechat->createMenu($newmenu);
         $openid = 'o6nPS0hZQY1B3Vdadw1jToroZJ08';
+
         $appid = 'wxd8e911e6cf0b7ed0';
         $appsecret = '87dc05c99d168869fd9ecd6f213196ef';
         $token = 'LGwechat';
+
         $access_token = $this->ci_wechat->checkAuth();
+
         $userMsg = $this->ci_wechat->getUserInfo($openid);
-        
+
         $options = array(
             'token' => 'LGwechat', //填写你设定的key
             'encodingaeskey' => '' //填写加密用的EncodingAESKey，如接口为明文模式可忽略
@@ -33,7 +38,12 @@ class Wechatt extends CI_Controller {
         $type = $weObj->getRev()->getRevType();
         switch ($type) {
             case Wechat::MSGTYPE_TEXT:
-                $weObj->text($userMsg)->reply();
+                if (isset($userMsg)) {
+                    $user = $userMsg;
+                } else {
+                    $user = '获取失败';
+                }
+                $weObj->text($user)->reply();
                 exit;
                 break;
             case Wechat::MSGTYPE_EVENT:
