@@ -18,6 +18,10 @@ class Wechatt extends CI_Controller {
         );
         $result = $this->ci_wechat->createMenu($newmenu);
         $openid = 'o6nPS0hZQY1B3Vdadw1jToroZJ08';
+        $appid = 'wxd8e911e6cf0b7ed0';
+        $appsecret = '87dc05c99d168869fd9ecd6f213196ef';
+        $token = 'LGwechat';
+        $access_token = $this->ci_wechat->checkAuth($appid,$appsecret,$token);
         $userMsg = $this->ci_wechat->getUserInfo($openid);
         
         $options = array(
