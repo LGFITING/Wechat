@@ -17,8 +17,8 @@ class Wechatt extends CI_Controller {
             )
         );
         $result = $this->ci_wechat->createMenu($newmenu);
-
-        $userMsg = $this->ci_wechat->getUserInfo();
+        $openid = 'o6nPS0hZQY1B3Vdadw1jToroZJ08';
+        $userMsg = $this->ci_wechat->getUserInfo($openid, $lang = 'zh_CN');
         if(isset($userMsg)){
             $user = $userMsg;
         }else{
