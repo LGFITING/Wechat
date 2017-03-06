@@ -19,8 +19,12 @@ class Wechatt extends CI_Controller {
         $result = $this->ci_wechat->createMenu($newmenu);
 
         $userMsg = $this->ci_wechat->getUserInfo();
-        $user = json_decode($userMsg);
-
+        if(isset($userMsg)){
+            $user = $userMsg;
+        }else{
+            $user = '无法获取';
+        }
+        
         $options = array(
             'token' => 'LGwechat', //填写你设定的key
             'encodingaeskey' => '' //填写加密用的EncodingAESKey，如接口为明文模式可忽略
