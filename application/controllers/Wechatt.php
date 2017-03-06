@@ -7,8 +7,8 @@ class Wechatt extends CI_Controller {
 
     public function index()
     {
-//        $this->load->view('website/index');
-//        echo 'test';
+        $this->load->library('CI_Wechat');
+        $this->ci_wechat->test();
     }
 
     public function testWechat()
