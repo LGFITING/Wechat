@@ -21,7 +21,7 @@ class Wechatt extends CI_Controller {
         $appid = 'wxd8e911e6cf0b7ed0';
         $appsecret = '87dc05c99d168869fd9ecd6f213196ef';
         $token = 'LGwechat';
-        $access_token = $this->ci_wechat->checkAuth($appid,$appsecret,$token);
+        $access_token = $this->ci_wechat->checkAuth();
         $userMsg = $this->ci_wechat->getUserInfo($openid);
         
         $options = array(
