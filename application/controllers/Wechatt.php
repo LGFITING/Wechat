@@ -17,7 +17,7 @@ class Wechatt extends CI_Controller {
             )
         );
         $result = $this->ci_wechat->createMenu($newmenu);
-        $openid = 'o6nPS0hZQY1B3Vdadw1jToroZJ08';
+        $openidy = 'o6nPS0hZQY1B3Vdadw1jToroZJ08';
 
         $appid = 'wxd8e911e6cf0b7ed0';
         $appsecret = '87dc05c99d168869fd9ecd6f213196ef';
@@ -25,7 +25,7 @@ class Wechatt extends CI_Controller {
 
         $access_token = $this->ci_wechat->checkAuth();
 
-        $userMsg = $this->ci_wechat->getUserInfo($openid);
+        $userMsg = $this->ci_wechat->getUserInfo($openidy);
 
         $options = array(
             'token' => 'LGwechat', //填写你设定的key
