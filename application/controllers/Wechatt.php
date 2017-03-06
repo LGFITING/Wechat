@@ -19,11 +19,6 @@ class Wechatt extends CI_Controller {
         $result = $this->ci_wechat->createMenu($newmenu);
         $openid = 'o6nPS0hZQY1B3Vdadw1jToroZJ08';
         $userMsg = $this->ci_wechat->getUserInfo($openid);
-        if(isset($userMsg)){
-            $user = $userMsg;
-        }else{
-            $user = '无法获取';
-        }
         
         $options = array(
             'token' => 'LGwechat', //填写你设定的key
@@ -34,7 +29,7 @@ class Wechatt extends CI_Controller {
         $type = $weObj->getRev()->getRevType();
         switch ($type) {
             case Wechat::MSGTYPE_TEXT:
-                $weObj->text($user)->reply();
+                $weObj->text($userMsg)->reply();
                 exit;
                 break;
             case Wechat::MSGTYPE_EVENT:
