@@ -5,8 +5,6 @@
  */
 class Wechatt extends CI_Controller {
 
-    private $user;
-
     public function index()
     {
         $this->load->library('CI_Wechat');
@@ -38,12 +36,7 @@ class Wechatt extends CI_Controller {
         $type = $weObj->getRev()->getRevType();
         switch ($type) {
             case Wechat::MSGTYPE_TEXT:
-                if (isset($userMsg)) {
-                    $user = $userMsg;
-                } else {
-                    $user = '获取失败';
-                }
-                $weObj->text($user)->reply();
+                $weObj->text($userMsg)->reply();
                 exit;
                 break;
             case Wechat::MSGTYPE_EVENT:
