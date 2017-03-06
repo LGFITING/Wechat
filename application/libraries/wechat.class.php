@@ -43,6 +43,9 @@
  */
 class Wechat
 {
+        public function test(){
+        echo 'test';
+    }
 	const MSGTYPE_TEXT = 'text';
 	const MSGTYPE_IMAGE = 'image';
 	const MSGTYPE_LOCATION = 'location';
@@ -238,7 +241,7 @@ class Wechat
 	public $errCode = 40001;
 	public $errMsg = "no access";
 	public $logcallback;
-
+            
 	public function __construct($options)
 	{
 		$this->token = isset($options['token'])?$options['token']:'';

@@ -11,7 +11,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  *  ...
  *
  */
-require_once(dirname(__FILE__) . '/wechat-php-sdk/wechat.class.php');
+require 'wechat.class.php';
 
 class CI_Wechat extends Wechat {
     protected $_CI;
@@ -22,7 +22,7 @@ class CI_Wechat extends Wechat {
 
         $this->_CI->load->driver('cache', array('adapter' => 'apc', 'backup' => 'file'));
 
-        parent::__construct($options);
+       parent::__construct($options);
     }
 
     /**
