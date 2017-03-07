@@ -25,7 +25,7 @@ class Wechatt extends CI_Controller {
         
 //        获取acess_token
         $access_token = $this->ci_wechat->checkAuth();
-
+        $openid = "o6nPS0hZQY1B3Vdadw1jToroZJ08";
         $userMsg = $this->ci_wechat->getUserInfo($openid);
 
         $options = array(
