@@ -9,7 +9,7 @@ class Wechatt extends CI_Controller {
     {
         $this->load->library('CI_Wechat');   
         $this->load->library('session');
-        $this->load->model('FollowModel');
+//        $this->load->model('FollowModel');
         $Auth_openid = $this->ci_wechat->getOpenId();
         if(isset($Auth_openid)){
             echo $Auth_openid;
