@@ -115,13 +115,14 @@ class CI_Wechat extends Wechat {
         if (empty($openid)) {
             return -1;
         } else {
+            echo $openid:exit();
             // 将粉丝的follow id 存入session中
 //            $userinfo = $this->_CI->FollowModel->getUserInfoByOpenId($openid);
 //
 //            $follow_id = $this->_CI->session->userdata('follow_id');
-            if (!$follow_id) {
-                $this->_CI->session->set_userdata('follow_id', $userinfo['id']);
-            }
+//            if (!$follow_id) {
+//                $this->_CI->session->set_userdata('follow_id', $userinfo['id']);
+//            }
         }
         return $openid;
     }
