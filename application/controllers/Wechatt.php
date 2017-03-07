@@ -13,12 +13,10 @@ class Wechatt extends CI_Controller {
             "button" =>
             array(
                 array('type' => 'click', 'name' => '最新消息', 'key' => 'MENU_KEY_NEWS'),
-                array('type' => 'view', 'name' => '我要搜索', 'url' => 'http://www.baidu.com'),
+                array('type' => 'view', 'name' => '首页', 'url' => 'http://lg.im-rice.com'),
             )
         );
         $result = $this->ci_wechat->createMenu($newmenu);
-        $openidy = 'o6nPS0hZQY1B3Vdadw1jToroZJ08';
-
         $appid = 'wxd8e911e6cf0b7ed0';
         $appsecret = '87dc05c99d168869fd9ecd6f213196ef';
         $token = 'LGwechat';
@@ -36,7 +34,7 @@ class Wechatt extends CI_Controller {
         $type = $weObj->getRev()->getRevType();
         switch ($type) {
             case Wechat::MSGTYPE_TEXT:
-                $weObj->text($userMsg)->reply();
+                $weObj->text('你好')->reply();
                 exit;
                 break;
             case Wechat::MSGTYPE_EVENT:
