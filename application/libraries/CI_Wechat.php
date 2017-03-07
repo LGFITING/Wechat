@@ -77,22 +77,30 @@ class CI_Wechat extends Wechat {
      */
     public function getCurUrl()
     {
-        $url = 'http://';
-        if (isset($_SERVER ['HTTPS']) && $_SERVER ['HTTPS'] == 'on') {
-            $url = 'https://';
+        $current_url = 'http://';
+        if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on') {
+            $current_url = 'https://';
         }
-        if ($_SERVER ['SERVER_PORT'] != '80') {
-            $url .= $_SERVER ['HTTP_HOST'] . ':' . $_SERVER ['SERVER_PORT'] . $_SERVER ['REQUEST_URI'];
+        if ($_SERVER['SERVER_PORT'] != '80') {
+            $current_url.=$_SERVER['SERVER_NAME'] . ':' . $_SERVER['SERVER_PORT'] . $_SERVER['REQUEST_URI'];
         } else {
-            $url .= $_SERVER ['HTTP_HOST'] . $_SERVER ['REQUEST_URI'];
+            $current_url.=$_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI'];
         }
-        // 防止出现http://h5.tom.com/game/index&openid=xxxxx的情况出现
-        if (stripos($url, '?') === false) {
-            $url .= '?t=' . 1008611;
-        }
-        return $url;
+        return $current_url;
     }
-
+    function get_current_url()
+    {
+        $current_url = 'http://';
+        if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on') {
+            $current_url = 'https://';
+        }
+        if ($_SERVER['SERVER_PORT'] != '80') {
+            $current_url.=$_SERVER['SERVER_NAME'] . ':' . $_SERVER['SERVER_PORT'] . $_SERVER['REQUEST_URI'];
+        } else {
+            $current_url.=$_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI'];
+        }
+        return $current_url;
+    }
     
     
        /**
