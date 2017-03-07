@@ -22,7 +22,8 @@ class Wechatt extends CI_Controller {
     public function index()
     {
         $this->load->library('CI_Wechat');
-        $callback = 'http://lg.im-rice.com/getUserInfo.php';
+        $callback = $this->get_current_url();
+//        $callback = 'http://lg.im-rice.com/getUserInfo.php';
         $url = $this->ci_wechat->getOauthRedirect($callback);
         $access_token = $this->ci_wechat->getOauthAccessToken();
 
