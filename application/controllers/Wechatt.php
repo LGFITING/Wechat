@@ -7,13 +7,29 @@ class Wechatt extends CI_Controller {
 
     public function index()
     {
+
+        //获取当前url
+        function get_current_url()
+        {
+            $current_url = 'http://';
+            if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on') {
+                $current_url = 'https://';
+            }
+            if ($_SERVER['SERVER_PORT'] != '80') {
+                $current_url.=$_SERVER['SERVER_NAME'] . ':' . $_SERVER['SERVER_PORT'] . $_SERVER['REQUEST_URI'];
+            } else {
+                $current_url.=$_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI'];
+            }
+            return $current_url;
+        }
+        
         $this->load->library('CI_Wechat');
         $appid = 'wxd8e911e6cf0b7ed0';
         $appsecret = '87dc05c99d168869fd9ecd6f213196ef';
         $token = 'LGwechat';
-        $redirect_uri = urlencode ( 'http://lg.im-rice.com/getUserInfo.php' );
-        $url ="https://open.weixin.qq.com/connect/oauth2/authorize?appid=$appid&redirect_uri=$redirect_uri&response_type=code&scope=snsapi_base&state=1#wechat_redirect";
-        header("Location:".$url);
+        $redirect_uri = urlencode('http://lg.im-rice.com/getUserInfo.php');
+        $url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=$appid&redirect_uri=$redirect_uri&response_type=code&scope=snsapi_base&state=1#wechat_redirect";
+        header("Location:" . $url);
 //        创建菜单
         $menu = $this->ci_wechat->getMenu();
         $newmenu = array(
@@ -24,7 +40,7 @@ class Wechatt extends CI_Controller {
             )
         );
         $result = $this->ci_wechat->createMenu($newmenu);
-        
+
 //        获取acess_token
         $access_token = $this->ci_wechat->checkAuth();
         $openid = "o6nPS0hZQY1B3Vdadw1jToroZJ08";
