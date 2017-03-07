@@ -21,12 +21,12 @@ class Wechatt extends CI_Controller {
 
     public function index()
     {
-        $this->load->library('CI_Wechat');       
+        $this->load->library('CI_Wechat');   
+        $callback = $this->get_current_url();
         $openid = $this->getOpenId();
         if(isset($openid)){
             echo $openid;
         }
-        $callback = $this->get_current_url();
 //        header('Location:'.$url);
 //        $access_token = $this->ci_wechat->getOauthAccessToken();
 
