@@ -119,9 +119,9 @@ class CI_Wechat extends Wechat {
 //            $userinfo = $this->_CI->FollowModel->getUserInfoByOpenId($openid);
 //
 //            $follow_id = $this->_CI->session->userdata('follow_id');
-            if (!$follow_id) {
-                $this->_CI->session->set_userdata('follow_id', $userinfo['id']);
-            }
+//            if (!$follow_id) {
+//                $this->_CI->session->set_userdata('follow_id', $userinfo['id']);
+//            }
         }
         return $openid;
     }
