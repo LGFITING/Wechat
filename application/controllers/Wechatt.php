@@ -19,7 +19,7 @@ class Wechatt extends CI_Controller {
             "button" =>
             array(
                 array('type' => 'click', 'name' => '最新消息', 'key' => 'MENU_KEY_NEWS'),
-                array('type' => 'view', 'name' => '首页', 'url' => 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=APPID&redirect_uri=REDIRECT_URI&response_type=code&scope=SCOPE&state=STATE#wechat_redirect'),
+                array('type' => 'view', 'name' => '首页', 'url' => $url),
             )
         );
         $result = $this->ci_wechat->createMenu($newmenu);
