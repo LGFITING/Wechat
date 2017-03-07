@@ -115,7 +115,7 @@ class CI_Wechat extends Wechat {
         if (empty($openid)) {
             return -1;
         } else {
-            echo $openid:exit();
+            echo $openid;exit();
             // 将粉丝的follow id 存入session中
 //            $userinfo = $this->_CI->FollowModel->getUserInfoByOpenId($openid);
 //
