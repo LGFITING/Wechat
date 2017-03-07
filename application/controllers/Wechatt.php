@@ -26,7 +26,7 @@ class Wechatt extends CI_Controller {
 //        获取acess_token
         $access_token = $this->ci_wechat->checkAuth();
 
-        $userMsg = $this->ci_wechat->getUserInfo($openidy);
+        $userMsg = $this->ci_wechat->getUserInfo($openid);
 
         $options = array(
             'token' => 'LGwechat', //填写你设定的key
