@@ -1,4 +1,5 @@
 <?php
+
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 /**
@@ -14,15 +15,18 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 require 'wechat.class.php';
 
 class CI_Wechat extends Wechat {
+
     protected $_CI;
-    public function __construct() {
-        $this->_CI =& get_instance();
+
+    public function __construct()
+    {
+        $this->_CI = & get_instance();
         $this->_CI->config->load('wechat');
         $options = $this->_CI->config->item('wechat');
 
         $this->_CI->load->driver('cache', array('adapter' => 'apc', 'backup' => 'file'));
 
-       parent::__construct($options);
+        parent::__construct($options);
     }
 
     /**
@@ -32,7 +36,8 @@ class CI_Wechat extends Wechat {
      * @param int $expired
      * @return boolean
      */
-    protected function setCache($cachename, $value, $expired) {
+    protected function setCache($cachename, $value, $expired)
+    {
         return $this->_CI->cache->save($cachename, $value, $expired);
     }
 
@@ -41,7 +46,8 @@ class CI_Wechat extends Wechat {
      * @param string $cachename
      * @return mixed
      */
-    protected function getCache($cachename) {
+    protected function getCache($cachename)
+    {
         return $this->_CI->cache->get($cachename);
     }
 
@@ -50,9 +56,43 @@ class CI_Wechat extends Wechat {
      * @param string $cachename
      * @return boolean
      */
-    protected function removeCache($cachename) {
+    protected function removeCache($cachename)
+    {
         return $this->_CI->cache->delete($cachename);
     }
+
+    /**
+     * 判断是当前环境是否为微信内置浏览器
+     * @return boolean
+     */
+    public function isWeixinBrowser()
+    {
+        return strpos($_SERVER['HTTP_USER_AGENT'], 'MicroMessenger') !== false;
+    }
+
+    /**
+     * 获取当前访问的完整url
+     * 如 http://benefit.lovchun.com/benefit/index
+     * @return string
+     */
+    public function getCurUrl()
+    {
+        $url = 'http://';
+        if (isset($_SERVER ['HTTPS']) && $_SERVER ['HTTPS'] == 'on') {
+            $url = 'https://';
+        }
+        if ($_SERVER ['SERVER_PORT'] != '80') {
+            $url .= $_SERVER ['HTTP_HOST'] . ':' . $_SERVER ['SERVER_PORT'] . $_SERVER ['REQUEST_URI'];
+        } else {
+            $url .= $_SERVER ['HTTP_HOST'] . $_SERVER ['REQUEST_URI'];
+        }
+        // 防止出现http://h5.tom.com/game/index&openid=xxxxx的情况出现
+        if (stripos($url, '?') === false) {
+            $url .= '?t=' . 1008611;
+        }
+        return $url;
+    }
+
 }
 
 /* End of file CI_Wechat.php */
