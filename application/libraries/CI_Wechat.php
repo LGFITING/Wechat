@@ -147,6 +147,7 @@ class CI_Wechat extends Wechat {
             $data['access_token'] = $oauth_access_token;
             $data['openid'] = $oauth_openid;
         } else {
+            echo "test";exit();
             $data = $this->getOauthAccessToken();
         }
 
