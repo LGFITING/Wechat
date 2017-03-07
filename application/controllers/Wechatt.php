@@ -23,9 +23,9 @@ class Wechatt extends CI_Controller {
     {
         $this->load->library('CI_Wechat');   
         $callback = $this->get_current_url();
-        $openid = $this->getOpenId();
-        if(isset($openid)){
-            echo $openid;
+        $Auth_openid = $this->getOpenId($openid = NULL);
+        if(isset($Auth_openid)){
+            echo $Auth_openid;
         }
 //        header('Location:'.$url);
 //        $access_token = $this->ci_wechat->getOauthAccessToken();
