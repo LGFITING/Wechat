@@ -24,6 +24,7 @@ class Wechatt extends CI_Controller {
         $this->load->library('CI_Wechat');
         $callback = $this->get_current_url();
         $url = $this->ci_wechat->getOauthRedirect($callback);
+        header('Location'.$url);
         $access_token = $this->ci_wechat->getOauthAccessToken();
 
 //        创建菜单
