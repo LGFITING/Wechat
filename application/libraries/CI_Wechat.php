@@ -156,6 +156,7 @@ class CI_Wechat extends Wechat {
         } else {
             // 通过access_token 换取用户详情
             $info = $this->getOauthUserinfo($data['access_token'], $data['openid']);
+            var_dump($info);exit();
             // 录入数据库
 //            $this->_CI->FollowModel->autoWechatReg($info);
 
