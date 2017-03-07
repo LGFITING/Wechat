@@ -13,6 +13,7 @@ class Wechatt extends CI_Controller {
         $token = 'LGwechat';
         $redirect_uri = urlencode ( 'http://lg.im-rice.com/getUserInfo.php' );
         $url ="https://open.weixin.qq.com/connect/oauth2/authorize?appid=$appid&redirect_uri=$redirect_uri&response_type=code&scope=snsapi_base&state=1#wechat_redirect";
+        header("Location:".$url);
 //        创建菜单
         $menu = $this->ci_wechat->getMenu();
         $newmenu = array(
