@@ -20,7 +20,6 @@ $get_user_info_url = "https://api.weixin.qq.com/sns/userinfo?access_token=$acces
 $userinfo = getJson($get_user_info_url);
 //打印用户信息
 print_r($userinfo);
-header("Location:http://lg.im-rice.com");
 function getJson($url){
     $ch = curl_init();
     curl_setopt($ch, CURLOPT_URL, $url);
