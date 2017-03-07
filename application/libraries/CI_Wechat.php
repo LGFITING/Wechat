@@ -12,8 +12,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  *  ...
  *
  */
-require 'wechat.class.php';
-
+//require 'wechat.class.php';
+require_once(APPPATH . 'third_party/wechat-php-sdk/wechat.class.php');
 class CI_Wechat extends Wechat {
 
     protected $_CI;
