@@ -8,6 +8,11 @@ class Wechatt extends CI_Controller {
     public function index()
     {
         $this->load->library('CI_Wechat');
+        $appid = 'wxd8e911e6cf0b7ed0';
+        $appsecret = '87dc05c99d168869fd9ecd6f213196ef';
+        $token = 'LGwechat';
+        
+//        创建菜单
         $menu = $this->ci_wechat->getMenu();
         $newmenu = array(
             "button" =>
@@ -17,10 +22,8 @@ class Wechatt extends CI_Controller {
             )
         );
         $result = $this->ci_wechat->createMenu($newmenu);
-        $appid = 'wxd8e911e6cf0b7ed0';
-        $appsecret = '87dc05c99d168869fd9ecd6f213196ef';
-        $token = 'LGwechat';
-
+        
+//        获取acess_token
         $access_token = $this->ci_wechat->checkAuth();
 
         $userMsg = $this->ci_wechat->getUserInfo($openidy);
@@ -34,7 +37,7 @@ class Wechatt extends CI_Controller {
         $type = $weObj->getRev()->getRevType();
         switch ($type) {
             case Wechat::MSGTYPE_TEXT:
-                $weObj->text('你好')->reply();
+                $weObj->text($access_token)->reply();
                 exit;
                 break;
             case Wechat::MSGTYPE_EVENT:
