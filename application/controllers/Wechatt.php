@@ -7,15 +7,17 @@ class Wechatt extends CI_Controller {
 
     public function index()
     {
-        $this->load->library('CI_Wechat');   
+        $this->load->library('CI_Wechat');
         $this->load->library('session');
 //        $this->load->model('FollowModel');
         $Auth_openid = $this->ci_wechat->getOpenId();
-        if(isset($Auth_openid)){
+        if (isset($Auth_openid)) {
             echo $Auth_openid;
         }
 //        header('Location:'.$url);
 //        $access_token = $this->ci_wechat->getOauthAccessToken();
+        $url2 = $this->ci_wechat->getCurUrl();
+
 
 //        创建菜单
         $menu = $this->ci_wechat->getMenu();
@@ -23,7 +25,7 @@ class Wechatt extends CI_Controller {
             "button" =>
             array(
                 array('type' => 'click', 'name' => '最新消息', 'key' => 'MENU_KEY_NEWS'),
-                array('type' => 'view', 'name' => '首页', 'url' => $url),
+                array('type' => 'view', 'name' => '首页', 'url' => $url2),
             )
         );
         $result = $this->ci_wechat->createMenu($newmenu);
