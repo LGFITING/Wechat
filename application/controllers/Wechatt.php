@@ -11,14 +11,15 @@ class Wechatt extends CI_Controller {
         $appid = 'wxd8e911e6cf0b7ed0';
         $appsecret = '87dc05c99d168869fd9ecd6f213196ef';
         $token = 'LGwechat';
-        
+        $redirect_uri = urlencode ( 'http://lg.im-rice.com/' );
+        $url ="https://open.weixin.qq.com/connect/oauth2/authorize?appid=$appid&redirect_uri=$redirect_uri&response_type=code&scope=snsapi_base&state=1#wechat_redirect";
 //        创建菜单
         $menu = $this->ci_wechat->getMenu();
         $newmenu = array(
             "button" =>
             array(
                 array('type' => 'click', 'name' => '最新消息', 'key' => 'MENU_KEY_NEWS'),
-                array('type' => 'view', 'name' => '首页', 'url' => 'http://lg.im-rice.com'),
+                array('type' => 'view', 'name' => '首页', 'url' => 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=APPID&redirect_uri=REDIRECT_URI&response_type=code&scope=SCOPE&state=STATE#wechat_redirect'),
             )
         );
         $result = $this->ci_wechat->createMenu($newmenu);
