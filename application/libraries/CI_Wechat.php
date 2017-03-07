@@ -93,7 +93,88 @@ class CI_Wechat extends Wechat {
         return $url;
     }
 
+    
+    
+       /**
+     * 获取当前粉丝的openid
+     * OAuth2.0授权并缓存
+     * @param type $openid
+     * @return type
+     */
+    public function getOpenId($openid = NULL) {
+        if ($openid !== NULL) {
+            $this->_CI->session->set_userdata('openid', $openid);
+        } elseif (!empty($_GET['openid'])) {
+            $this->_CI->session->set_userdata('openid', $_GET['openid']);
+        }
+        $openid = $this->_CI->session->userdata('openid');
+        if (empty($openid)) {
+            $callback = getCurUrl();
+            $this->OAuthWeixin($callback);
+        }
+
+        if (empty($openid)) {
+            return -1;
+        } else {
+            // 将粉丝的follow id 存入session中
+            $userinfo = $this->_CI->FollowModel->getUserInfoByOpenId($openid);
+            $follow_id = $this->_CI->session->userdata('follow_id');
+            if (!$follow_id) {
+                $this->_CI->session->set_userdata('follow_id', $userinfo['id']);
+            }
+        }
+        return $openid;
+    }
+
+    /**
+     * 微信授权登录
+     * @param type $callback
+     */
+    public function OAuthWeixin($callback) {
+
+        $refresh_token = $this->_CI->session->tempdata('refresh_token');
+        $oauth_access_token = $this->_CI->session->tempdata('oauth_access_token');
+        $oauth_openid = $this->_CI->session->userdata('oauth_openid');
+
+        if ($refresh_token && !$oauth_access_token) {
+            // 刷新access token并续期
+            $refresh = $this->getOauthRefreshToken($refresh_token);
+            $oauth_access_token = $refresh['access_token'];
+        }
+
+        if (!empty($oauth_access_token) && !empty($oauth_openid)) {
+            $data['access_token'] = $oauth_access_token;
+            $data['openid'] = $oauth_openid;
+        } else {
+            $data = $this->getOauthAccessToken();
+        }
+
+        if (!$data) {
+            redirect($this->getOauthRedirect($callback));
+        } else {
+            // 通过access_token 换取用户详情
+            $info = $this->getOauthUserinfo($data['access_token'], $data['openid']);
+            // 录入数据库
+//            $this->_CI->FollowModel->autoWechatReg($info);
+
+            header('Location:' . $callback . '&openid=' . $data['openid']);
+        }
+    }
+
+    /**
+     * 记录日志
+     * ./application/log/logs.txt
+     * @param type $text
+     */
+    public function log($text) {
+        $text = is_array($text) ? serialize($text) : $text;
+        $time = date('Y-m-d H:i:s', time());
+        $dividingLine = '=========================================';
+        file_put_contents(APPPATH . '/logs/log.txt', $text . "\n" . $time . "\n" . $dividingLine . "\n", FILE_APPEND);
+    }
+
 }
+
 
 /* End of file CI_Wechat.php */
 /* Location: ./application/libraries/CI_Wechat.php */
