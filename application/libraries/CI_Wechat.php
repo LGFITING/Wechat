@@ -148,13 +148,12 @@ class CI_Wechat extends Wechat {
             $data['openid'] = $oauth_openid;
         } else {
             $data = $this->getOauthAccessToken();
-            exit();
         }
 
         if (!$data) {
 //            redirect($this->getOauthRedirect($callback));
-            $url = $this->getOauthRedirect($callback);
-            header("Location:".$url);
+            $cururl = $this->getOauthRedirect($callback);
+            header("Location:".$cururl);
         } else {
             // 通过access_token 换取用户详情
             $info = $this->getOauthUserinfo($data['access_token'], $data['openid']);
